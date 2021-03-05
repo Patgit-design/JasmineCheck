@@ -20,6 +20,24 @@ let reverseWordsInArray = (array) => {
 }
 
 let everyPossiblePair = (array) => {
+    let arr = [];
+    let x = 0;
+    let y = x + 1;
+    array.sort();
+    while (y < array.length) {
+        arr.push([array[x], array[y]])
+        y++
+        if (y === array.length) {
+            x++;
+            y = x + 1;
+        }
+    }
+    // console.log(arr.sort());
+    return (arr.sort());
+
+    //    let arraySorted = array.sort();
+    //   return arraySorted;
+    //   console.log(arraySorted);
     //return array.flatMap((v, i) => array.slice(i + 1).map(w => v + ' ' + w));
 
     /////////
@@ -121,11 +139,19 @@ let getElementsUntilGreaterThanFive = (array) => {
 }
 
 let convertArrayToObject = (array) => {
+    let object = {};
+    for (let x = 0; x < array.length; x += 2) {
+        object[array[x]] = array[x + 1];
+    }
+    return object;
     // const obj = Object.fromEntries(array);
     //  return obj;
     //////////////////
-    const obj = Object.assign({}, array);
-    console.log(obj);
+    //  let arrayConverted = Object.fromEntries(array);
+    //return array;
+    /////////////////////////////////
+    //  const obj = Object.assign({}, array);
+    //  console.log(obj);
 }
 
 let getAllLetters = (array) => {
@@ -133,18 +159,47 @@ let getAllLetters = (array) => {
 }
 
 let swapKeysAndValues = (object) => {
-    /*   function swap(object) {
-           let ret = {};
-           for (const key in object) {
-               ret[object[key]] = key;
-           }
-           return ret;
-       }*/
+        let keysAndValuesSwapped = {};
 
-}
+        function swap(object) {
+            for (let key in object) {
+                keysAndValuesSwapped[object[key]] = key;
+            }
+            return keysAndValuesSwapped;
+        }
+        return swap(object);
+        // let keysAndValuesSwapped = {};
+        //Object.keys(object).forEach(key => {
+        //  newObj[object[key]] = key;
+        // });
+        //  return keysAndValuesSwapped;
+        //  console.log(keysAndValuesSwapped);
+        ////////////////////////////////////
+        //   function swap(object) {
+        //    let ret = {};
+        //   for (const key in object) {
+        //    ret[object[key]] = key;
+    }
+    // return ret;
 
-let sumKeysAndValues = (object) => {
+// console.log(swap);
+//console.log(ret);
+
+
+let sumKeysAndValues = (object) => { /////////A revoir pas compris !!!!!!
+    let arr = [];
+    let result = 0;
+    arr.push(Object.values(object), (Object.keys(object).map(Number)))
+    arr = arr[0].concat(arr[1])
+    for (let x = 0; x < arr.length; x++) {
+        result = result + arr[x]
+    }
+    return result;
+    ////////////////////////////////
     // return object.map(v => ({...v, isActive: true }));
+    //////////////////////////////////////////////
+    //   const sumValues = Object.values(object).reduce((a, b) => a + b);
+    //  return sumValues;
 }
 
 let removeCapitals = (string) => {
@@ -168,17 +223,39 @@ let getDomainName = (string) => {
 }
 
 let titleize = (string) => {
-    /*  return string
-          .split(' ')
-          .map((word) => word[0].toUpperCase() + word.slice(1).toLowerCase())
-          .join(' ');*/
-    /*  let sentence = string.toLowerCase().split(" ");
-      for (let i = 0; i < sentence.length; i++) {
-          sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
-      }
-
-      return sentence.join(" ");*/
+    /*    Divide all the words in the sentence individually. This task can be achieved by using string.split() method.
+    Convert all the elements in each and every word in to lowercase using string.toLowerCase() method. 
+    Loop through first elements of all the words using for loop and convert them in to uppercase. After converting, concatenate them with the remaining elements of their respective word, leading to a original word with first element in upper case. 
+    Join all the words using String.join() with a space between them so as to convert it in to its original string but title cased.*/
+    let sentence = string.toLowerCase().split(" ");
+    for (let i = 0; i < sentence.length; i++) {
+        sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+    }
+    console.log(sentence.join(" "));
+    return sentence.join(" ");
 }
+
+/*
+    string.split(' ');
+    string.map((word) => word[0].toUpperCase() + word.slice(1).toLowerCase());
+    string.join(' ');
+    return (titleize(string));
+*/
+
+
+
+//////////////////////////////////////
+/*  return string
+      .split(' ')
+      .map((word) => word[0].toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');*/
+/*  let sentence = string.toLowerCase().split(" ");
+  for (let i = 0; i < sentence.length; i++) {
+      sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+  }
+
+  return sentence.join(" ");*/
+
 
 let checkForSpecialCharacters = (string) => {
     return /[\W_]/g.test(string);
